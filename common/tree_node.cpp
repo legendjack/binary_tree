@@ -29,3 +29,13 @@ void TreeNode::print() {
   left_->print();
   right_->print();
 }
+
+void TreeNode::print_next() {
+  if (this == nullptr) {
+    std::cout << std::endl;
+    return;
+  }
+
+  std::cout << value_ << " ";
+  next_->print_next();
+}

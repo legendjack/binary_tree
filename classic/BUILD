@@ -10,3 +10,13 @@ cc_binary(
       "//common:tree_node",
     ],
 )
+
+cc_binary(
+    name = "main",
+    srcs = [
+      "main.cpp",
+    ],
+    deps = [
+      "//common:tree_node",
+    ],
+)
