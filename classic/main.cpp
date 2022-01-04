@@ -3,6 +3,27 @@
 
 #include "common/tree_node.h"
 
+void print_next(TreeNode *root) {
+  if (root == nullptr) {
+    std::cout << std::endl;
+    return;
+  }
+
+  std::cout << root->value() << " ";
+  print_next(root->next());
+}
+
+void print_right(TreeNode *node) {
+  if (node == nullptr) {
+    std::cout << std::endl;
+    return;
+  }
+
+  std::cout << node->value() << " ";
+
+  print_right(node->right());
+};
+
 // 将整棵树的节点翻转
 TreeNode *invertTree(TreeNode *root) {
   // base case
@@ -15,7 +36,6 @@ TreeNode *invertTree(TreeNode *root) {
   TreeNode *tmp = root->left();
   root->set_left(root->right());
   root->set_right(tmp);
-  // std::swap(root->left(), root->right())；
 
   // 让左右子节点继续翻转它们的子节点
   invertTree(root->left());
@@ -39,14 +59,35 @@ void connectTwoNodes(TreeNode *n1, TreeNode *n2) {
 }
 
 // 主函数
-TreeNode *connect(TreeNode *root) {
+void connect(TreeNode *root) {
   if (root == nullptr)
-    return nullptr;
+    return;
 
   connectTwoNodes(root->left(), root->right());
 }
 
-void flatten(TreeNode *root) {}
+void flatten(TreeNode *root) {
+  if (root == nullptr)
+    return;
+
+  // 先flatten左右子树
+  flatten(root->left());
+  flatten(root->right());
+
+  // 到这里认为左右子树已经flatten
+  // 然后把左子树当做右子树, 之前的右子树接到现在的右子树的最后
+  auto *left = root->left();
+  auto *right = root->right();
+
+  root->set_left(nullptr);
+  root->set_right(left);
+
+  TreeNode *tmp = root;
+  while (tmp->right() != nullptr) {
+    tmp = tmp->right();
+  }
+  tmp->set_right(right);
+}
 
 int main() {
   init_tree();
@@ -54,16 +95,16 @@ int main() {
 
   std::cout << "-------------" << std::endl;
 
-  //   auto* invert_tree = invertTree(root.get());
-  //   invert_tree->print();
+  // auto* invert_tree = invertTree(root.get());
+  // invert_tree->print();
 
-  connect(root.get());
-  node4->print_next();
-  node2->print_next();
-  node1->print_next();
+  // connect(root.get());
+  // print_next(node4.get());
+  // print_next(node2.get());
+  // print_next(node1.get());
 
-  // flatten(root);
-  // root.print_next();
+  flatten(root.get());
+  print_right(root.get());
 
   return 0;
 }

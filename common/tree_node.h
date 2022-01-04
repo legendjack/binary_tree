@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <iostream>
 
 class TreeNode {
 public:
@@ -15,7 +16,6 @@ public:
   void set_right(TreeNode *right) { right_ = right; }
   void set_next(TreeNode *next) { next_ = next; }
   void print();
-  void print_next();
 
 private:
   TreeNode *left_ = nullptr;
