@@ -95,13 +95,13 @@ int main() {
 
   std::cout << "-------------" << std::endl;
 
-  // auto* invert_tree = invertTree(root.get());
-  // invert_tree->print();
+  auto* invert_tree = invertTree(root.get());
+  invert_tree->print();
 
-  // connect(root.get());
-  // print_next(node4.get());
-  // print_next(node2.get());
-  // print_next(node1.get());
+  connect(root.get());
+  print_next(node4.get());
+  print_next(node2.get());
+  print_next(node1.get());
 
   flatten(root.get());
   print_right(root.get());
